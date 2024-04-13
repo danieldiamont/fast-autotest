@@ -2,8 +2,15 @@ from Protocols.CCSDS import CCSDS_Packet
 from Protocols.RS232 import RS232_MSG
 import time
 
-def test_serial_loopback_multiple_frames(serial_loopback_stream):
-    # get stream fixture
+def test_serial_loopback(serial_loopback_stream):
+    """
+    Test serial loopback stream by writing and reading messages.
+
+    Each message is a RS232_MSG object that contains a CCSDS packet with a custom payload.
+
+    :param serial_loopback_stream: SerialStream object
+    :return: None
+    """
     stream = serial_loopback_stream
 
     payloads = [b'Hello, World!', b'Goodbye, World!']

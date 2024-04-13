@@ -4,10 +4,10 @@ from Streams.Stream import Stream
 
 
 class DummyStream(Stream):
-    def __init__(self, logger):
+    def __init__(self, logger) -> None:
         self.logger = logger
 
-    def write(self, data):
+    def write(self, data: bytes) -> int:
         self.logger.info("DummyStream: Writing data: {}".format(data.hex()))
         self.data = data
         return len(data)
@@ -19,6 +19,6 @@ class DummyStream(Stream):
             return None
         return self.data
 
-    def teardown(self):
+    def teardown(self) -> None:
         self.logger.info("DummyStream: Teardown")
 
