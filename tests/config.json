@@ -1,12 +1,12 @@
 {
     "serial-loopback": {
         "TX": {
-            "port": "/dev/pts/5",
+            "port": "/dev/pts/7",
             "baudrate": 9600,
             "timeout": 1
         },
         "RX": {
-            "port": "/dev/pts/6",
+            "port": "/dev/pts/8",
             "baudrate": 9600,
             "timeout": 1
         }
