@@ -6,6 +6,7 @@ import pytest
 from Streams.DummyStream import DummyStream
 from Streams.SerialStream import SerialStream
 
+# logging
 FORMAT = '%(asctime)s - [%(levelname)s] - %(message)s'
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -18,12 +19,15 @@ logging.basicConfig(
         format=FORMAT
         )
 
-config_path = os.path.join(os.path.dirname(__file__), 'tests', 'config.json')
 
+# load configuration
+config_path = os.path.join(os.path.dirname(__file__), 'tests', 'config.json')
 with open(config_path, 'r') as f:
     config = json.load(f)
 
 
+
+# fixtures
 @pytest.fixture
 def dummy_stream():
     s = DummyStream(logger)

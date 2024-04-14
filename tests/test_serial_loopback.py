@@ -8,7 +8,7 @@ def test_serial_loopback(serial_loopback_stream):
 
     Each message is a RS232_MSG object that contains a CCSDS packet with a custom payload.
 
-    :param serial_loopback_stream: SerialStream object
+    :param serial_loopback_stream: SerialStream fixture
     :return: None
     """
     stream = serial_loopback_stream

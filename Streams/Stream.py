@@ -10,6 +10,16 @@ class Stream:
     """
 
     @abstractmethod
+    def setup(self, **config: Optional[dict]) -> None:
+        """
+        Setup stream
+
+        :param config: configuration dictionary
+        :return: None
+        """
+        pass
+
+    @abstractmethod
     def write(self, data) -> int:
         """
         Write data to stream

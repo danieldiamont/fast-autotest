@@ -17,6 +17,20 @@ class DummyStream(Stream):
         """
 
         self.logger = logger
+        self.setup()
+
+
+    def setup(self, **config: Optional[dict]) -> None:
+        """
+        Setup stream
+
+        :param config: configuration dictionary
+        :return: None
+        """
+
+        self.data = None
+        _ = config
+        self.logger.info("DummyStream: Setup complete")
 
 
     def write(self, data: bytes) -> int:
@@ -41,9 +55,12 @@ class DummyStream(Stream):
         """
 
         _ = size
-        self.logger.info("DummyStream: Reading data: {}".format(self.data.hex()))
+
         if not self.data:
+            self.logger.error("DummyStream: No data to read")
             return None
+
+        self.logger.info("DummyStream: Reading data: {}".format(self.data.hex()))
         return self.data
 
 

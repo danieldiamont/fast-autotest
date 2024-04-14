@@ -17,15 +17,49 @@ sudo apt-get install socat
 
 ## Architecture
 
+The framework is designed to be modular and extensible. The framework is composed of the following components:
+- Streams
+- Protocols
+- Tests
+- config.json
+- Fixtures
+
 ### Streams
 
-The framework is designed to test data streams. A data stream is a sequence of data packets. The framework provides a Stream abstract base class that defines the interface for a data stream. A Stream subclass must implement the following abstract methods:
+Streams are the core of the framework. A stream is a wrapper around a data resource that provides an interface for reading and writing data as well as executing setup and teardown operations specific to the data source.
 
+Specifically, the framework provides a Stream abstract base class that defines the interface for a data stream. A Stream subclass must implement the following abstract methods:
+
+- `setup(self, **config: Optional[dict]) -> None`: Set up the stream.
 - `write(self, data: bytes) -> int`: Write data to the stream. Returns the number of bytes written.
 - `read(self, size: int) -> Optional[bytes]`: Read data from the stream. Returns the data read or None if no data is available.
 - `teardown(self) -> None`: Clean up the stream.
 
+See `Streams/SerialStream.py` for an example of a Stream subclass for serial port communications.
+
 ### Protocols
+
+Protocols are data structures that define the format of data packets.
+
+
+### Fixtures
+
+Fixtures are used to create and managed Streams. Fixtures are defined in `tests/conftest.py`.
+
+
+### config.json
+
+The `config.json` file is used to specify the configuration for the tests. For example, for a serial-loopback test, the configuration file specifies the serial ports used for the loopback, as well as the baud rate and other serial port settings.
+
+Configuration of this file goes hand in hand with `tests/conftest.py`, which parses the `config.json` file and creates fixtures for the tests accordingly.
+
+
+### Tests
+
+Tests are defined in the `tests` directory. Each test can take a stream fixture as an input. The test can then use the stream fixture to read and write data to the stream and perform assertions on the data.
+
+Tests defined in this manner are automatically detected by the pytest framework, which will inject the appopriate fixtures into the test functions at runtime.
+
 
 ## Demo
 
@@ -37,7 +71,7 @@ To run the demo, execute the following command:
 
 This will start a socat process that will loopback a serial port to itself. The demo uses `tests/config.json` to specifiy the serial ports used for the loopbock. If the ports in config.json are different than what socat is outputting, run:
 ```
-python3 update_ports.py
+python3 demo-update-ports.py <port1> <port2>
 ```
 
 Then, execute the following command:

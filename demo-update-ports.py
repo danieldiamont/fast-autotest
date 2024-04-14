@@ -4,6 +4,13 @@ import os
 
 
 def update_ports(ports, config_file):
+    """
+    Update the ports in the configuration file
+
+    :param ports: list of ports to update
+    :param config_file: configuration file path
+    :return: None
+    """
     with open(config_file, "r") as f:
         config = json.load(f)
 
