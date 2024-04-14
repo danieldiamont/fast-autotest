@@ -1,9 +1,16 @@
+"""
+    Description: RS232 Protocol data structure with header, payload, and footer fields.
+    Version: 1.0
+    Author: Daniel Diamont
+"""
+
+
 from dataclasses import dataclass
-from Protocols.Protocol import Protocol
+from Protocols.protocol import Protocol
 import struct
 
 @dataclass
-class RS232_MSG(Protocol):
+class Rs232Msg(Protocol):
     """
     RS232 Message data structure with header, payload, and footer fields.
     """
@@ -25,7 +32,7 @@ class RS232_MSG(Protocol):
 
 
     @staticmethod
-    def deserialize(data: bytes) -> 'RS232_MSG':
+    def deserialize(data: bytes) -> 'Rs232Msg':
         """
         Deserialize bytes to RS232 Message data structure
 
@@ -36,4 +43,4 @@ class RS232_MSG(Protocol):
         header = struct.unpack('B', data[0:1])[0]
         footer = struct.unpack('B', data[-1:])[0]
         payload = data[1:-1]
-        return RS232_MSG(header, payload, footer)
+        return Rs232Msg(header, payload, footer)

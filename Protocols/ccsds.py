@@ -1,17 +1,24 @@
+"""
+    Description: CCSDS Packet data structure
+    Version: 1.0
+    Author: Daniel Diamont
+"""
 
-from Protocols.Protocol import Protocol
-from dataclasses import dataclass
 import struct
+from dataclasses import dataclass
+from Protocols.protocol import Protocol
 
 @dataclass
-class CCSDS_Packet(Protocol):
+class CcsdsPacket(Protocol):
     """
     CCSDS Packet data structure.
 
-    CCSDS Packet data structure with version, type, secondary header flag, APID, sequence flags, sequence count,
-    length, payload, and checksum fields.
+    CCSDS Packet data structure with version, type, secondary header flag,
+    APID, sequence flags, sequence count, length, payload, and checksum fields.
     """
 
+    # pylint: disable=too-many-instance-attributes
+    # The number of attributes is dictated by CCSDS.
     version: int
     type: int
     sec_header_flag: int
@@ -41,7 +48,7 @@ class CCSDS_Packet(Protocol):
 
 
     @staticmethod
-    def deserialize(data: bytes) -> 'CCSDS_Packet':
+    def deserialize(data: bytes) -> 'CcsdsPacket':
         """
         Deserialize bytes to CCSDS Packet data structure
 
@@ -50,7 +57,7 @@ class CCSDS_Packet(Protocol):
         """
 
         version = struct.unpack('!B', data[0:1])[0]
-        type = struct.unpack('!B', data[1:2])[0]
+        _type = struct.unpack('!B', data[1:2])[0]
         sec_header_flag = struct.unpack('!B', data[2:3])[0]
         apid = struct.unpack('!H', data[3:5])[0]
         seq_flags = struct.unpack('!B', data[5:6])[0]
@@ -58,11 +65,11 @@ class CCSDS_Packet(Protocol):
         length = struct.unpack('!H', data[8:10])[0]
         payload = data[10:10+length]
         checksum = struct.unpack('!H', data[10+length:12+length])[0]
-        return CCSDS_Packet(version, type, sec_header_flag, apid, seq_flags, seq_count, length, payload, checksum)
+        return CcsdsPacket(version, _type, sec_header_flag, apid, seq_flags, seq_count, length, payload, checksum)
 
 
     @staticmethod
-    def wrap_default(payload: bytes) -> 'CCSDS_Packet':
+    def wrap_default(payload: bytes) -> 'CcsdsPacket':
         """
         Wrap payload in default CCSDS Packet data structure
 
@@ -70,4 +77,4 @@ class CCSDS_Packet(Protocol):
         :return: CCSDS Packet data structure
         """
 
-        return CCSDS_Packet(0, 0, 0, 0, 0, 0, len(payload), payload, 0)
+        return CcsdsPacket(0, 0, 0, 0, 0, 0, len(payload), payload, 0)
