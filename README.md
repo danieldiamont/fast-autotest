@@ -30,10 +30,12 @@ Streams are the core of the framework. A stream is a wrapper around a data resou
 
 Specifically, the framework provides a Stream abstract base class that defines the interface for a data stream. A Stream subclass must implement the following abstract methods:
 
-- `setup(self, **config: Optional[dict]) -> None`: Set up the stream.
-- `write(self, data: bytes) -> int`: Write data to the stream. Returns the number of bytes written.
-- `read(self, size: int) -> Optional[bytes]`: Read data from the stream. Returns the data read or None if no data is available.
-- `teardown(self) -> None`: Clean up the stream.
+```
+setup(self, **config: Optional[dict]) -> None':     # Set up the stream.
+write(self, data: bytes) -> int:                    # Write data to the stream. Returns the number of bytes written.
+read(self, size: int) -> Optional[bytes]:           # Read data from the stream. Returns the data read or None if no data is available.
+teardown(self) -> None:                             # Clean up the stream.
+```
 
 See `Streams/SerialStream.py` for an example of a Stream subclass for serial port communications.
 
@@ -41,9 +43,10 @@ See `Streams/SerialStream.py` for an example of a Stream subclass for serial por
 
 Protocols are data structures that define the format of data packets. The framework provides a Protocol abstract base class that defines the interface for a protocol. A Protocol subclass must implement the following abstract methods:
 
-- `serialize(self) -> bytes`: Serialize the protocol packet to bytes.
-- `deserialize(cls, data: bytes) -> Protocol`: Deserialize the protocol packet from bytes. Implemented as `@classmethod`.
-
+```
+serialize(self) -> bytes:                       # Serialize the protocol packet to bytes.
+deserialize(cls, data: bytes) -> Protocol:      # Deserialize the protocol packet from bytes. Implemented as `@classmethod`.
+```
 
 ### Fixtures
 
