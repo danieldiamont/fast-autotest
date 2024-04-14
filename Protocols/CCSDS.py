@@ -40,8 +40,8 @@ class CCSDS_Packet(Protocol):
                struct.pack('!H', self.checksum)
 
 
-    @classmethod
-    def deserialize(cls, data: bytes) -> 'CCSDS_Packet':
+    @staticmethod
+    def deserialize(data: bytes) -> 'CCSDS_Packet':
         """
         Deserialize bytes to CCSDS Packet data structure
 

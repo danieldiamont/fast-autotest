@@ -5,8 +5,6 @@ class Protocol(ABC):
     Protocol data structure with payload field.
     """
 
-    payload: bytes
-
     @abstractmethod
     def serialize(self) -> bytes:
         """
@@ -18,9 +16,9 @@ class Protocol(ABC):
         pass
 
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def deserialize(cls, data: bytes) -> 'Protocol':
+    def deserialize(data: bytes) -> 'Protocol':
         """
         Deserialize bytes to Protocol data structure
 

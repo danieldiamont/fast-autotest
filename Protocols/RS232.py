@@ -24,8 +24,8 @@ class RS232_MSG(Protocol):
         return hdr + self.payload + ftr
 
 
-    @classmethod
-    def deserialize(cls, data: bytes) -> 'RS232_MSG':
+    @staticmethod
+    def deserialize(data: bytes) -> 'RS232_MSG':
         """
         Deserialize bytes to RS232 Message data structure
 

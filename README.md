@@ -31,7 +31,6 @@ Streams are the core of the framework. A stream is a wrapper around a data resou
 Specifically, the framework provides a Stream abstract base class that defines the interface for a data stream. A Stream subclass must implement the following abstract methods:
 
 ```
-
 # Set up the stream.
 setup(self, **config: Optional[dict]) -> None':
 
@@ -60,7 +59,7 @@ Protocols are data structures that define the format of data packets. The framew
 serialize(self) -> bytes:
 
 
-# Deserialize the protocol packet from bytes. Implemented as a @classmethod.
+# Deserialize the protocol packet from bytes. Implemented as a @staticmethod.
 deserialize(cls, data: bytes) -> Protocol:
 ```
 
