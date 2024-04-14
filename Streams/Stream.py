@@ -1,8 +1,8 @@
 
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Optional
 
-class Stream:
+class Stream(ABC):
     """
     Abstract class for stream objects
 
@@ -20,7 +20,7 @@ class Stream:
         pass
 
     @abstractmethod
-    def write(self, data) -> int:
+    def write(self, data: bytes) -> int:
         """
         Write data to stream
 

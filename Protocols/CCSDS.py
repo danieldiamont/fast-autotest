@@ -1,8 +1,10 @@
+
+from Protocols.Protocol import Protocol
 from dataclasses import dataclass
 import struct
 
 @dataclass
-class CCSDS_Packet:
+class CCSDS_Packet(Protocol):
     """
     CCSDS Packet data structure.
 

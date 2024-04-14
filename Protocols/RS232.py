@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from Protocols.Protocol import Protocol
 import struct
 
 @dataclass
-class RS232_MSG:
+class RS232_MSG(Protocol):
     """
     RS232 Message data structure with header, payload, and footer fields.
     """
