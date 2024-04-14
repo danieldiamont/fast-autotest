@@ -1,6 +1,11 @@
+"""
+Description: Stream interface
+Author: Daniel Diamont
+"""
 
 from abc import ABC, abstractmethod
 from typing import Optional
+
 
 class Stream(ABC):
     """
@@ -17,7 +22,6 @@ class Stream(ABC):
         :param config: configuration dictionary
         :return: None
         """
-        pass
 
     @abstractmethod
     def write(self, data: bytes) -> int:
@@ -27,7 +31,6 @@ class Stream(ABC):
         :param data: data to write
         :return: number of bytes written
         """
-        pass
 
     @abstractmethod
     def read(self, size: int = 1) -> Optional[bytes]:
@@ -37,7 +40,6 @@ class Stream(ABC):
         :param size: number of bytes to read
         :return: data read
         """
-        pass
 
     @abstractmethod
     def teardown(self) -> None:
@@ -46,4 +48,3 @@ class Stream(ABC):
 
         :return: None
         """
-        pass

@@ -1,6 +1,12 @@
-from Protocols.ccsds import CcsdsPacket
-from Protocols.rs232 import Rs232Msg 
+"""
+    Description: Test serial loopback stream by writing and reading messages.
+    Author: Daniel Diamont
+"""
+
 import time
+from Protocols.ccsds import CcsdsPacket
+from Protocols.rs232 import Rs232Msg
+
 
 def test_serial_loopback(serial_loopback_stream):
     """
@@ -33,8 +39,8 @@ def test_serial_loopback(serial_loopback_stream):
     for message in messages:
         msgs.append(Rs232Msg.deserialize(stream.read(len(message))))
 
-    deserialized = [CcsdsPacket.deserialize(msg.payload).payload for msg in msgs]
+    deserialized = [CcsdsPacket.deserialize(
+        msg.payload).payload for msg in msgs]
 
     print(f"Actual: {deserialized}\t Expected: {expected}")
     assert deserialized == expected
-

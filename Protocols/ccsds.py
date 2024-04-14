@@ -8,6 +8,7 @@ import struct
 from dataclasses import dataclass
 from Protocols.protocol import Protocol
 
+
 @dataclass
 class CcsdsPacket(Protocol):
     """
@@ -37,15 +38,14 @@ class CcsdsPacket(Protocol):
         """
 
         return struct.pack('!B', self.version) + \
-               struct.pack('!B', self.type) + \
-               struct.pack('!B', self.sec_header_flag) + \
-               struct.pack('!H', self.apid) + \
-               struct.pack('!B', self.seq_flags) + \
-               struct.pack('!H', self.seq_count) + \
-               struct.pack('!H', self.length) + \
-               self.payload + \
-               struct.pack('!H', self.checksum)
-
+            struct.pack('!B', self.type) + \
+            struct.pack('!B', self.sec_header_flag) + \
+            struct.pack('!H', self.apid) + \
+            struct.pack('!B', self.seq_flags) + \
+            struct.pack('!H', self.seq_count) + \
+            struct.pack('!H', self.length) + \
+            self.payload + \
+            struct.pack('!H', self.checksum)
 
     @staticmethod
     def deserialize(data: bytes) -> 'CcsdsPacket':
@@ -63,10 +63,18 @@ class CcsdsPacket(Protocol):
         seq_flags = struct.unpack('!B', data[5:6])[0]
         seq_count = struct.unpack('!H', data[6:8])[0]
         length = struct.unpack('!H', data[8:10])[0]
-        payload = data[10:10+length]
-        checksum = struct.unpack('!H', data[10+length:12+length])[0]
-        return CcsdsPacket(version, _type, sec_header_flag, apid, seq_flags, seq_count, length, payload, checksum)
-
+        payload = data[10:10 + length]
+        checksum = struct.unpack('!H', data[10 + length:12 + length])[0]
+        return CcsdsPacket(
+            version,
+            _type,
+            sec_header_flag,
+            apid,
+            seq_flags,
+            seq_count,
+            length,
+            payload,
+            checksum)
 
     @staticmethod
     def wrap_default(payload: bytes) -> 'CcsdsPacket':

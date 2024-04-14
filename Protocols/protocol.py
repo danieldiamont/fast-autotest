@@ -1,4 +1,10 @@
+"""
+Description: Protocol data structure with serialize and deserialize abstract methods
+Author: Daniel Diamont
+"""
+
 from abc import ABC, abstractmethod
+
 
 class Protocol(ABC):
     """
@@ -13,9 +19,6 @@ class Protocol(ABC):
         :return: serialized data
         """
 
-        pass
-
-
     @staticmethod
     @abstractmethod
     def deserialize(data: bytes) -> 'Protocol':
@@ -25,4 +28,3 @@ class Protocol(ABC):
         :param data: data to deserialize
         :return: deserialized data
         """
-        pass

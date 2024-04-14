@@ -5,9 +5,10 @@
 """
 
 
+import struct
 from dataclasses import dataclass
 from Protocols.protocol import Protocol
-import struct
+
 
 @dataclass
 class Rs232Msg(Protocol):
@@ -29,7 +30,6 @@ class Rs232Msg(Protocol):
         hdr = struct.pack('B', self.header)
         ftr = struct.pack('B', self.footer)
         return hdr + self.payload + ftr
-
 
     @staticmethod
     def deserialize(data: bytes) -> 'Rs232Msg':

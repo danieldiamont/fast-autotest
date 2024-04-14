@@ -1,6 +1,10 @@
+"""
+Description: Dummy stream object for demonstration purposes as a stream loopback.
+Author: Daniel Diamont
+"""
 
 from typing import Optional
-from Streams.Stream import Stream
+from streams.stream import Stream
 
 
 class DummyStream(Stream):
@@ -16,9 +20,9 @@ class DummyStream(Stream):
         :return: None
         """
 
+        self.data = None
         self.logger = logger
         self.setup()
-
 
     def setup(self, **config: Optional[dict]) -> None:
         """
@@ -32,7 +36,6 @@ class DummyStream(Stream):
         _ = config
         self.logger.info("DummyStream: Setup complete")
 
-
     def write(self, data: bytes) -> int:
         """
         Write data to stream
@@ -41,10 +44,9 @@ class DummyStream(Stream):
         :return: number of bytes written
         """
 
-        self.logger.info("DummyStream: Writing data: {}".format(data.hex()))
+        self.logger.info(f"DummyStream: Writing data: {data.hex()}")
         self.data = data
         return len(data)
-
 
     def read(self, size: int = 1) -> Optional[bytes]:
         """
@@ -60,9 +62,9 @@ class DummyStream(Stream):
             self.logger.error("DummyStream: No data to read")
             return None
 
-        self.logger.info("DummyStream: Reading data: {}".format(self.data.hex()))
+        self.logger.info(
+            f"DummyStream: Reading data: {self.data}")
         return self.data
-
 
     def teardown(self) -> None:
         """
@@ -72,4 +74,3 @@ class DummyStream(Stream):
         """
 
         self.logger.info("DummyStream: Teardown")
-

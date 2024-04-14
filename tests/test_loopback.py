@@ -1,3 +1,7 @@
+"""
+    Description: Test dummy stream loopback by writing and reading messages.
+    Author: Daniel Diamont
+"""
 
 def test_loopback(dummy_stream):
     """

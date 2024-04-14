@@ -1,10 +1,16 @@
+"""
+Description: Module to configure the test environment and fixtures
+Author: Daniel Diamont
+"""
+
+
 import json
 import logging
 import os
 import pytest
 
-from Streams.DummyStream import DummyStream
-from Streams.SerialStream import SerialStream
+from streams.dummy_stream import DummyStream
+from streams.serial_stream import SerialStream
 
 # logging
 FORMAT = '%(asctime)s - [%(levelname)s] - %(message)s'
@@ -12,30 +18,37 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 logging.basicConfig(
-        level=logging.DEBUG,
-        filename='log.txt',
-        filemode='w',
-        encoding='utf-8',
-        format=FORMAT
-        )
+    level=logging.DEBUG,
+    filename='log.txt',
+    filemode='w',
+    encoding='utf-8',
+    format=FORMAT
+)
 
 
 # load configuration
 config_path = os.path.join(os.path.dirname(__file__), 'tests', 'config.json')
-with open(config_path, 'r') as f:
-    config = json.load(f)
-
+with open(config_path, 'r', encoding="utf-8") as file:
+    config = json.load(file)
 
 
 # fixtures
 @pytest.fixture
 def dummy_stream():
-    s = DummyStream(logger)
-    yield s
-    s.teardown()
+    """
+    Fixture to create a DummyStream object
+    """
+
+    stream = DummyStream(logger)
+    yield stream
+    stream.teardown()
+
 
 @pytest.fixture
 def serial_loopback_stream():
-    s = SerialStream(logger, **config['serial-loopback'])
-    yield s
-    s.teardown()
+    """
+    Fixture to create a SerialStream object
+    """
+    stream = SerialStream(logger, **config['serial-loopback'])
+    yield stream
+    stream.teardown()

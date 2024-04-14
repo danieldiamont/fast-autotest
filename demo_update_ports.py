@@ -1,3 +1,9 @@
+"""
+Description: Update the ports in the configuration file
+Author: Daniel Diamont
+"""
+
+
 import json
 import sys
 import os
@@ -11,8 +17,8 @@ def update_ports(ports, config_file):
     :param config_file: configuration file path
     :return: None
     """
-    with open(config_file, "r") as f:
-        config = json.load(f)
+    with open(config_file, "r", encoding="utf-8") as file:
+        config = json.load(file)
 
         prefix = "/dev/pts/"
 
@@ -26,15 +32,18 @@ def update_ports(ports, config_file):
         print("Updated ports:")
         print(f"{config['serial-loopback']['TX']['port'] = }")
         print(f"{config['serial-loopback']['RX']['port'] = }")
-        
-    with open(config_file, "w") as f:
-        json.dump(config, f, indent=4)
+
+    with open(config_file, "w", encoding="utf-8") as file:
+        json.dump(config, file, indent=4)
 
 
 if __name__ == "__main__":
-    config_path = os.path.join(os.path.dirname(__file__), "tests", "config.json")
+    config_path = os.path.join(
+        os.path.dirname(__file__),
+        "tests",
+        "config.json")
 
-    assert len(sys.argv) == 3, "Usage: python3 demo-update-ports.py <tx_port> <rx_port>"
+    assert len(
+        sys.argv) == 3, "Usage: python3 demo_update_ports.py <tx_port> <rx_port>"
 
     update_ports(sys.argv[1:], config_path)
-

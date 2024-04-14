@@ -47,7 +47,7 @@ read(self, size: int) -> Optional[bytes]:
 teardown(self) -> None:
 ```
 
-See `Streams/SerialStream.py` for an example of a Stream subclass for serial port communications.
+See `streams/serial_stream.py` for an example of a Stream subclass for serial port communications.
 
 ### Protocols
 
@@ -60,7 +60,7 @@ serialize(self) -> bytes:
 
 
 # Deserialize the protocol packet from bytes. Implemented as a @staticmethod.
-deserialize(cls, data: bytes) -> Protocol:
+deserialize(data: bytes) -> Protocol:
 ```
 
 ### Fixtures
@@ -92,7 +92,7 @@ To run the demo, execute the following command:
 
 This will start a socat process that will loopback a serial port to itself. The demo uses `tests/config.json` to specifiy the serial ports used for the loopbock. If the ports in config.json are different than what socat is outputting, run:
 ```
-python3 demo-update-ports.py <port1> <port2>
+python3 demo_update_ports.py <port1> <port2>
 ```
 
 Then, execute the following command:
