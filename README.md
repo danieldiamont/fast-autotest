@@ -42,10 +42,9 @@ To extend the framework to test a new kind of data stream, create a new class th
 
 The framework currently supports the following protocols:
 - CCSDS packets
-- Serial data surrounded by start and stop bytes
+- Raw bytes data with start and stop bytes
 
-Note:
-The framework is designed to be easily extensible to support new protocols. To add a new protocol, create a @dataclass that represents the protocol's packet structure. Add serialization and deserialization methods to the @dataclass.
+The framework is designed to easily compose protocols. For example, a CCSDS packet be embedded within an RS232_MSG by serializing the CCSDS_Packet as the RS232_MSG's payload. Additionally, the framework is designed to be easily extensible to support new protocols. To add a new protocol, create a `@dataclass` that represents the protocol's packet structure and add serialization and deserialization (to/from bytes).
 
 ## Contributing
 

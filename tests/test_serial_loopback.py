@@ -19,8 +19,8 @@ def test_serial_loopback(serial_loopback_stream):
     # configure and serialize message payload, CCSDS packet, and RS232_MSG
     messages = []
     for payload in payloads:
-        packet = CCSDS_Packet.wrap_default(payload).serialize()
-        message = RS232_MSG(0x55, packet, 0xAA).serialize()
+        serial_payload = CCSDS_Packet.wrap_default(payload).serialize()
+        message = RS232_MSG(0x55, serial_payload, 0xAA).serialize()
         messages.append(message)
 
     # write messages to stream
@@ -33,7 +33,7 @@ def test_serial_loopback(serial_loopback_stream):
     for message in messages:
         msgs.append(RS232_MSG.deserialize(stream.read(len(message))))
 
-    deserialized = [CCSDS_Packet.deserialize(msg.packet).payload for msg in msgs]
+    deserialized = [CCSDS_Packet.deserialize(msg.payload).payload for msg in msgs]
 
     print(f"Actual: {deserialized}\t Expected: {expected}")
     assert deserialized == expected
