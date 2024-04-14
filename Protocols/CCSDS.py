@@ -3,6 +3,13 @@ import struct
 
 @dataclass
 class CCSDS_Packet:
+    """
+    CCSDS Packet data structure.
+
+    CCSDS Packet data structure with version, type, secondary header flag, APID, sequence flags, sequence count,
+    length, payload, and checksum fields.
+    """
+
     version: int
     type: int
     sec_header_flag: int
@@ -13,7 +20,13 @@ class CCSDS_Packet:
     payload: bytes
     checksum: int
 
-    def __bytes__(self):
+    def __bytes__(self) -> bytes:
+        """
+        Serialize CCSDS Packet data structure to bytes
+
+        :return: serialized data
+        """
+
         return struct.pack('!B', self.version) + \
                struct.pack('!B', self.type) + \
                struct.pack('!B', self.sec_header_flag) + \
@@ -24,11 +37,26 @@ class CCSDS_Packet:
                self.payload + \
                struct.pack('!H', self.checksum)
 
-    def serialize(self):
+
+    def serialize(self) -> bytes:
+        """
+        Serialize CCSDS Packet data structure to bytes
+
+        :return: serialized data
+        """
+
         return self.__bytes__()
+
 
     @staticmethod
     def deserialize(data: bytes) -> 'CCSDS_Packet':
+        """
+        Deserialize bytes to CCSDS Packet data structure
+
+        :param data: data to deserialize
+        :return: deserialized data
+        """
+
         version = struct.unpack('!B', data[0:1])[0]
         type = struct.unpack('!B', data[1:2])[0]
         sec_header_flag = struct.unpack('!B', data[2:3])[0]
@@ -40,6 +68,14 @@ class CCSDS_Packet:
         checksum = struct.unpack('!H', data[10+length:12+length])[0]
         return CCSDS_Packet(version, type, sec_header_flag, apid, seq_flags, seq_count, length, payload, checksum)
 
+
     @staticmethod
     def wrap_default(payload: bytes) -> 'CCSDS_Packet':
+        """
+        Wrap payload in default CCSDS Packet data structure
+
+        :param payload: payload to wrap
+        :return: CCSDS Packet data structure
+        """
+
         return CCSDS_Packet(0, 0, 0, 0, 0, 0, len(payload), payload, 0)

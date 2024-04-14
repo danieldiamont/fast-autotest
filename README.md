@@ -7,13 +7,25 @@ This is a simple test automation framework originally intended to CCSDS packets 
 
 ## Installation
 
-To install the required dependencies, execute the following commands:
+To install the required dependencies for the framework only, I recommend creating a virtual environment and installing the dependencies from `requirements.txt`. To install the dependencies for the demo, you will need to install socat.
 
 ```
 pip install -r requirements.txt
 
 sudo apt-get install socat
 ```
+
+## Architecture
+
+### Streams
+
+The framework is designed to test data streams. A data stream is a sequence of data packets. The framework provides a Stream abstract base class that defines the interface for a data stream. A Stream subclass must implement the following abstract methods:
+
+- `write(self, data: bytes) -> int`: Write data to the stream. Returns the number of bytes written.
+- `read(self, size: int) -> Optional[bytes]`: Read data from the stream. Returns the data read or None if no data is available.
+- `teardown(self) -> None`: Clean up the stream.
+
+### Protocols
 
 ## Demo
 
