@@ -39,7 +39,10 @@ See `Streams/SerialStream.py` for an example of a Stream subclass for serial por
 
 ### Protocols
 
-Protocols are data structures that define the format of data packets.
+Protocols are data structures that define the format of data packets. The framework provides a Protocol abstract base class that defines the interface for a protocol. A Protocol subclass must implement the following abstract methods:
+
+- `serialize(self) -> bytes`: Serialize the protocol packet to bytes.
+- `deserialize(cls, data: bytes) -> Protocol`: Deserialize the protocol packet from bytes. Implemented as `@classmethod`.
 
 
 ### Fixtures

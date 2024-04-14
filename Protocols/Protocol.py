@@ -8,11 +8,23 @@ class Protocol(ABC):
     payload: bytes
 
     @abstractmethod
-    def __bytes__(self) -> bytes:
+    def serialize(self) -> bytes:
         """
         Serialize Protocol data structure to bytes
 
         :return: serialized data
         """
 
+        pass
+
+
+    @classmethod
+    @abstractmethod
+    def deserialize(cls, data: bytes) -> 'Protocol':
+        """
+        Deserialize bytes to Protocol data structure
+
+        :param data: data to deserialize
+        :return: deserialized data
+        """
         pass

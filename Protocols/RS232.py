@@ -12,7 +12,7 @@ class RS232_MSG(Protocol):
     payload: bytes
     footer: int
 
-    def __bytes__(self) -> bytes:
+    def serialize(self) -> bytes:
         """
         Serialize RS232 Message data structure to bytes
 
@@ -23,17 +23,9 @@ class RS232_MSG(Protocol):
         ftr = struct.pack('B', self.footer)
         return hdr + self.payload + ftr
 
-    def serialize(self) -> bytes:
-        """
-        Serialize RS232 Message data structure to bytes
 
-        :return: serialized data
-        """
-
-        return self.__bytes__()
-
-    @staticmethod
-    def deserialize(data: bytes) -> 'RS232_MSG':
+    @classmethod
+    def deserialize(cls, data: bytes) -> 'RS232_MSG':
         """
         Deserialize bytes to RS232 Message data structure
 

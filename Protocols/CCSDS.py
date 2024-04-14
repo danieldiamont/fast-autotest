@@ -22,7 +22,7 @@ class CCSDS_Packet(Protocol):
     payload: bytes
     checksum: int
 
-    def __bytes__(self) -> bytes:
+    def serialize(self) -> bytes:
         """
         Serialize CCSDS Packet data structure to bytes
 
@@ -40,18 +40,8 @@ class CCSDS_Packet(Protocol):
                struct.pack('!H', self.checksum)
 
 
-    def serialize(self) -> bytes:
-        """
-        Serialize CCSDS Packet data structure to bytes
-
-        :return: serialized data
-        """
-
-        return self.__bytes__()
-
-
-    @staticmethod
-    def deserialize(data: bytes) -> 'CCSDS_Packet':
+    @classmethod
+    def deserialize(cls, data: bytes) -> 'CCSDS_Packet':
         """
         Deserialize bytes to CCSDS Packet data structure
 
